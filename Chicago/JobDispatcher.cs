@@ -18,21 +18,24 @@ namespace Chicago
         public void Execute()
         {
             //TODO: Job Loader?
-            var job = new Job[25];
-            Parallel.ForEach(job, job1 =>
-                {
-                    //TODO: Handler choose
-                    var handler = new Test1 {Job = job1};
-                    handler.Process();
-                    if (handler.Job.IsSuccess)
-                    {
-                        Successful++;
-                    }
-                    else
-                    {
-                        Bad++;
-                    }
-                });
+            var jobLoader = new JobLoader {Path = "test_job.txt"};
+
+            Parallel.ForEach(jobLoader.Load(), CheckThread);
+        }
+
+        private void CheckThread(Job job)
+        {
+            //TODO: Handler choose
+            var handler = new Test1 {Job = job};
+            handler.Process();
+            if (handler.Job.IsSuccess)
+            {
+                Successful++;
+            }
+            else
+            {
+                Bad++;
+            }
         }
     }
 }

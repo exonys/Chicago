@@ -53,6 +53,7 @@
     <Compile Include="Job.cs" />
     <Compile Include="JobDispatcher.cs" />
     <Compile Include="JobHandlers\Test1.cs" />
+    <Compile Include="JobLoader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
