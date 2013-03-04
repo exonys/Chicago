@@ -1,10 +1,13 @@
 ﻿using System.Threading.Tasks;
 using Chicago.JobHandlers;
+using NLog;
 
 namespace Chicago
 {
     internal class JobDispatcher
     {
+        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
+
         /// <summary>
         ///     Represents successful jobs count
         /// </summary>
@@ -18,12 +21,14 @@ namespace Chicago
         public void Execute()
         {
             //TODO: Job Loader?
+            _logger.Trace("Loading jobs");
             var jobLoader = new JobLoader {Path = "test_job.txt"};
 
-            Parallel.ForEach(jobLoader.Load(), CheckThread);
+            _logger.Trace("Doing jobs");
+            Parallel.ForEach(jobLoader.Load(), Check);
         }
 
-        private void CheckThread(Job job)
+        private void Check(Job job)
         {
             //TODO: Handler choose
             var handler = new Test1 {Job = job};

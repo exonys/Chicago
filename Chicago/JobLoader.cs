@@ -2,37 +2,44 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using NLog;
 
 namespace Chicago
 {
     internal class JobLoader
     {
+        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
+
         public string Path { get; set; }
 
         public IEnumerable<Job> Load()
         {
-            //TODO: Better check validity check
-            if (Path == null)
-            {
-                throw new Exception("Path is null");
-            }
-
-            //TODO: Input format customization
             var lines = new List<string>();
-            using (var r = new StreamReader(Path))
+            _logger.Trace("Reading");
+            try
             {
-                string line;
-                while ((line = r.ReadLine()) != null)
+                //TODO: Input format customization
+                using (var r = new StreamReader(Path))
                 {
-                    lines.Add(line);
+                    string line;
+                    while ((line = r.ReadLine()) != null)
+                    {
+                        lines.Add(line);
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                _logger.Error("Reading failed: {0}", e.Message);
+            }
 
-            foreach (string[] sp in lines.Select(s => s.Split(';')))
+            _logger.Trace("Parsing");
+            foreach (var sp in lines.Select(s => s.Split(';')))
             {
                 if (sp.Length != 2)
                 {
-                    throw new Exception("Check jobs input");
+                    _logger.Error("Job file is invalid!");
+                    continue;
                 }
 
                 yield return new Job(sp[0], sp[1]);
