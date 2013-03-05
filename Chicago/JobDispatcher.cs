@@ -20,12 +20,14 @@ namespace Chicago
 
         public void Execute()
         {
-            //TODO: Job Loader?
+            //TODO: Real Job Loader?
             _logger.Trace("Loading jobs");
             var jobLoader = new JobLoader {Path = "test_job.txt"};
 
+            //TODO: ThreadPool?
+            //This multi-threading method is CPU efficient, but it's limited to logical processors count
             _logger.Trace("Doing jobs");
-            Parallel.ForEach(jobLoader.Load(), Check);
+            Parallel.ForEach(jobLoader.Load(), Check); 
         }
 
         private void Check(Job job)
