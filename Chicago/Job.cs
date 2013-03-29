@@ -18,6 +18,6 @@
         /// </summary>
         public string Password { get; private set; }
 
-        public bool IsSuccess { get; set; }
+        public bool IsSuccessful { get; set; }
     }
 }

@@ -27,7 +27,7 @@ namespace Chicago
         {
             //TODO: Real Job Loader?
             _logger.Trace("Loading jobs");
-            var jobLoader = new JobLoader {Path = "test_job.txt"};
+            var jobLoader = new JobLoader {Path = "test_job.txt"}; //It should get path from UI
 
             //TODO: ThreadPool?
             //This multi-threading method is CPU efficient, but it's limited to logical processors count
@@ -42,7 +42,7 @@ namespace Chicago
             var handler = (Test1) Handler;
             handler.Job = job;
             handler.Process();
-            if (handler.Job.IsSuccess)
+            if (handler.Job.IsSuccessful)
             {
                 Successful++;
             }

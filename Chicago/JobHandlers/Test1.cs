@@ -19,7 +19,7 @@ namespace Chicago.JobHandlers
             {
                 throw new Exception("Job is null. Check JobDispatcher.cs");
             }
-            Job.IsSuccess = Check();
+            Job.IsSuccessful = Check();
         }
 
         /// <summary>
