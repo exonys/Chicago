@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
+using Chicago.Properties;
 using NLog;
 
 namespace Chicago
@@ -16,8 +17,8 @@ namespace Chicago
             InitializeComponent();
 
             //Show version info
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            var assembly = Assembly.GetExecutingAssembly();
+            var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
 // ReSharper disable DoNotCallOverridableMethodsInConstructor
             Text = Text + ' ' + fvi.ProductVersion;
 // ReSharper restore DoNotCallOverridableMethodsInConstructor
@@ -31,8 +32,8 @@ namespace Chicago
                     Handler = Assembly.GetExecutingAssembly().CreateInstance((string) comboBox1.SelectedItem)
                 };
             jd.Execute();
-            MessageBox.Show("Successful " + jd.Successful.ToString(CultureInfo.InvariantCulture));
-            MessageBox.Show("Failed " + jd.Bad.ToString(CultureInfo.InvariantCulture));
+            MessageBox.Show(Resources.l_Successful + jd.Successful.ToString(CultureInfo.InvariantCulture));
+            MessageBox.Show(Resources.l_Failed + jd.Bad.ToString(CultureInfo.InvariantCulture));
         }
 
         private void Form1_Load(object sender, EventArgs e)

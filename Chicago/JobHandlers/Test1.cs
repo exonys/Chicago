@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace Chicago.JobHandlers
 {
@@ -28,6 +29,7 @@ namespace Chicago.JobHandlers
         /// <returns></returns>
         private static bool Check()
         {
+            MessageBox.Show("DB");
             //Checking code should be here
             return true;
         }
