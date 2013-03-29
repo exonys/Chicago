@@ -26,7 +26,10 @@ namespace Chicago
         private void button1_Click(object sender, EventArgs e)
         {
             _logger.Trace("UI: Creating JobDispatcher");
-            var jd = new JobDispatcher();
+            var jd = new JobDispatcher
+                {
+                    Handler = Assembly.GetExecutingAssembly().CreateInstance((string) comboBox1.SelectedItem)
+                };
             jd.Execute();
             MessageBox.Show(jd.Successful.ToString(CultureInfo.InvariantCulture));
             MessageBox.Show(jd.Bad.ToString(CultureInfo.InvariantCulture));
@@ -34,7 +37,7 @@ namespace Chicago
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Type[] types = ReflectionHelper.GetTypesInNamespace(Assembly.GetExecutingAssembly(), "Chicago.JobHandlers");
+            var types = ReflectionHelper.GetTypesInNamespace(Assembly.GetExecutingAssembly(), "Chicago.JobHandlers");
             foreach (Type type in types)
             {
                 comboBox1.Items.Add(type.ToString());

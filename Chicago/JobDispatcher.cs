@@ -14,9 +14,14 @@ namespace Chicago
         public int Successful { get; private set; }
 
         /// <summary>
-        ///     Represents not successful jobs count
+        ///     Represents failed jobs count
         /// </summary>
         public int Bad { get; private set; }
+
+        /// <summary>
+        ///     This is handler class
+        /// </summary>
+        public object Handler { private get; set; }
 
         public void Execute()
         {
@@ -27,13 +32,15 @@ namespace Chicago
             //TODO: ThreadPool?
             //This multi-threading method is CPU efficient, but it's limited to logical processors count
             _logger.Trace("Doing jobs");
+            var d = jobLoader.Load();
             Parallel.ForEach(jobLoader.Load(), Check); 
         }
 
         private void Check(Job job)
         {
             //TODO: Handler choose
-            var handler = new Test1 {Job = job};
+            var handler = (Test1) Handler;
+            handler.Job = job;
             handler.Process();
             if (handler.Job.IsSuccess)
             {
