@@ -31,8 +31,8 @@ namespace Chicago
                     Handler = Assembly.GetExecutingAssembly().CreateInstance((string) comboBox1.SelectedItem)
                 };
             jd.Execute();
-            MessageBox.Show(jd.Successful.ToString(CultureInfo.InvariantCulture));
-            MessageBox.Show(jd.Bad.ToString(CultureInfo.InvariantCulture));
+            MessageBox.Show("Successful " + jd.Successful.ToString(CultureInfo.InvariantCulture));
+            MessageBox.Show("Failed " + jd.Bad.ToString(CultureInfo.InvariantCulture));
         }
 
         private void Form1_Load(object sender, EventArgs e)
