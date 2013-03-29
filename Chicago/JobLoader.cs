@@ -31,6 +31,7 @@ namespace Chicago
             catch (Exception e)
             {
                 _logger.Error("Reading failed: {0}", e.Message);
+                throw new Exception("File is missing");
             }
 
             _logger.Trace("Parsing");
@@ -38,7 +39,7 @@ namespace Chicago
             {
                 if (sp.Length != 2)
                 {
-                    _logger.Error("Job file is invalid!");
+                    _logger.Error("Job file is invalid");
                     continue;
                 }
 
